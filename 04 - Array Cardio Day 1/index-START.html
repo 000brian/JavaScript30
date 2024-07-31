@@ -38,29 +38,67 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    function checkBornIn1500s(person)
+    {
+      return person.year <= 1599 && person.year >= 1500;
+    }
+    const inventorsFrom1500s = inventors.filter(checkBornIn1500s);
+    console.table(inventorsFrom1500s);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const firstAndLastNames = inventors.map(inventor => (inventor.first + ' ' + inventor.last));
+    console.table(firstAndLastNames);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const ordered = inventors.sort(function(a, b)
+      {
+        if (a.year > b.year)
+        {
+          return 1;
+        }
+        else
+        {
+          return -1;
+        }
+      });
+    console.table(ordered);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
-
+    const totalAge = inventors.reduce((accumulator, inventor) => {
+      return accumulator + (inventor.passed - inventor.year);
+    }, 0);
+    console.log(totalAge);
     // 5. Sort the inventors by years lived
-
+    const oldest = inventors.sort( (a,b) => ( (a.passed - a.year) > (b.passed - b.year) ? 1 : -1));
+    console.table(oldest);
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // done in chrome devtools console 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
-
+    const alphabeticalPeople = people.sort(function(a,b){
+      const [aLast, aFirst] = a.split(', '); // still returns array, giving indexes names
+      const [bLast, bFirst] = b.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+    console.table(alphabeticalPeople);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const sums = data.reduce((obj, item) => {
+      if (!(item in obj))
+      {
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {});
+    console.table(sums);
   </script>
 </body>
 </html>
